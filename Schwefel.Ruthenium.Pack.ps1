@@ -30,7 +30,7 @@ $packOutput = Resolve-Path $packOutput
 Write-Host "Build Version suffix: $packVersionSuffix"
 
 # Pack Projects
-Get-ChildItem ".\AlaricDelany.PublicSources" -File -Recurse -Filter project.json | 
+Get-ChildItem ".\Schwefel.Ruthenium" -File -Recurse -Filter project.json | 
 Foreach-Object {
     Write-Host ("Packing " + $_.DirectoryName)
     
