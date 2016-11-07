@@ -9,6 +9,15 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Schwefel.Ruthenium.Shared",
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Schwefel.Ruthenium.Logging", "Schwefel.Ruthenium.Logging\Schwefel.Ruthenium.Logging.xproj", "{3586CC50-36D2-4404-9E69-EA02556A6721}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Schwefel.Ruthenium.Reflection.Attributes.Helpers", "Schwefel.Ruthenium.Reflection.Attributes.Helpers\Schwefel.Ruthenium.Reflection.Attributes.Helpers.xproj", "{68C479F1-07B0-4C30-A83C-C08172250221}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Schwefel.Ruthenium.Reflection.Helpers", "Schwefel.Ruthenium.Reflection.Helpers\Schwefel.Ruthenium.Reflection.Helpers.xproj", "{BB023EB2-639E-4301-9AB4-929B3A999DFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{EED74352-5764-43C0-BCF0-7762FDA2FDF2}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Schwefel.Ruthenium.Shared\Schwefel.Ruthenium.Shared.projitems*{46cd27e1-1bc9-4e09-ad56-34fb454d7905}*SharedItemsImports = 13
@@ -26,6 +35,14 @@ Global
 		{3586CC50-36D2-4404-9E69-EA02556A6721}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3586CC50-36D2-4404-9E69-EA02556A6721}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3586CC50-36D2-4404-9E69-EA02556A6721}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68C479F1-07B0-4C30-A83C-C08172250221}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68C479F1-07B0-4C30-A83C-C08172250221}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68C479F1-07B0-4C30-A83C-C08172250221}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68C479F1-07B0-4C30-A83C-C08172250221}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB023EB2-639E-4301-9AB4-929B3A999DFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB023EB2-639E-4301-9AB4-929B3A999DFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB023EB2-639E-4301-9AB4-929B3A999DFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB023EB2-639E-4301-9AB4-929B3A999DFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

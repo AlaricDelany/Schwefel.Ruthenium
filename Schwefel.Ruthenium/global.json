@@ -1,0 +1,9 @@
+{
+  "projects": [
+    "Schwefel.Ruthenium.Core",
+    "Schwefel.Ruthenium.Logging",
+    "Schwefel.Ruthenium.Reflection.Attributes.Helpers",
+    "Schwefel.Ruthenium.Reflection.Helpers"
+
+  ]
+}
