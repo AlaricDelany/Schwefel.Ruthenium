@@ -3,7 +3,8 @@
     "Schwefel.Ruthenium.Core",
     "Schwefel.Ruthenium.Logging",
     "Schwefel.Ruthenium.Reflection.Attributes.Helpers",
-    "Schwefel.Ruthenium.Reflection.Helpers"
+    "Schwefel.Ruthenium.Reflection.Helpers",
+    "Schwefel.Ruthenium.Security.Hash"
 
   ]
 }
