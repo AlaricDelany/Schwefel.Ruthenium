@@ -8,7 +8,7 @@ namespace Schwefel.Ruthenium.Reflection.Helpers
 {
     public static class MemberHelper
     {
-        public static MemberInfo GetMemberInfo(Expression expression)
+        private static MemberInfo GetMemberInfoInternal(Expression expression)
         {
             LambdaExpression lLambdaExpression = expression as LambdaExpression;
 
@@ -30,7 +30,12 @@ namespace Schwefel.Ruthenium.Reflection.Helpers
             return lMemberInfo;
         }
 
-        public static IDictionary<string, object> ToDictionary<TTarget>(this TTarget self)
+        public static MemberInfo GetMemberInfo<TInstance>(Expression<Func<TInstance, object>> getMember)
+        {
+            return GetMemberInfoInternal(getMember);
+        }
+
+        public static IDictionary<string, object> ToDictionary<TTarget>(TTarget self)
         {
             PropertyInfo[] lProperties = typeof(TTarget).GetTypeInfo().DeclaredProperties.ToArray();
             Dictionary<string, object> lCurrentEntryDic = new Dictionary<string, object>(lProperties.Count());
@@ -42,7 +47,7 @@ namespace Schwefel.Ruthenium.Reflection.Helpers
             return lCurrentEntryDic;
         }
 
-        public static TTarget ToObject<TTarget>(this IDictionary<string, object> input)
+        public static TTarget ToObject<TTarget>(IDictionary<string, object> input)
             where TTarget : new()
         {
             TTarget lResult = new TTarget();
