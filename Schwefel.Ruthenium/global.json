@@ -4,7 +4,8 @@
     "Schwefel.Ruthenium.Logging",
     "Schwefel.Ruthenium.Reflection.Attributes.Helpers",
     "Schwefel.Ruthenium.Reflection.Helpers",
-    "Schwefel.Ruthenium.Security.Hash"
+    "Schwefel.Ruthenium.Security.Hash",
+    "Schwefel.Ruthenium.Threading.Helpers"
 
   ]
 }
