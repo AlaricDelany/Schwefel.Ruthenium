@@ -23,8 +23,8 @@ namespace Schwefel.Ruthenium.Threading.Helpers
         public static async Task<PollHelperResult> PollUntilTrueAsync(Func<bool> pollFunc, TimeSpan timeSpanTillTimeout,
             string timeoutErrorMessage, TimeSpan? pollInterval = null)
         {
-            if(pollInterval == null || pollInterval < TimeSpan.Zero)
-                pollInterval = TimeSpan.Zero;
+            if(pollInterval == null || pollInterval <= TimeSpan.Zero)
+                pollInterval = TimeSpan.FromSeconds(1);
 
             DateTime lStartTime = DateTime.UtcNow;
             PollHelperResult lResult = new PollHelperResult();
@@ -52,7 +52,8 @@ namespace Schwefel.Ruthenium.Threading.Helpers
                 });
                 TimeSpan lTimeToWaitTillNextInterval = pollInterval.Value - (lEndExecution - lStartExecution);
 
-                await Task.Delay(lTimeToWaitTillNextInterval);
+                if(lTimeToWaitTillNextInterval.Ticks > 0)
+                    await Task.Delay(lTimeToWaitTillNextInterval);
             }
             return lResult;
 
@@ -65,6 +66,7 @@ namespace Schwefel.Ruthenium.Threading.Helpers
                 pollInterval);
 
             lPollTask.ConfigureAwait(false);
+            lPollTask.Wait(TimeSpan.FromMinutes(15));
 
             PollHelperResult lPollHelperResult = lPollTask.Result;
 
