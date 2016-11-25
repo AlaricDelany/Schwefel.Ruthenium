@@ -5,6 +5,6 @@ namespace Schwefel.Ruthenium.IO.FileSystem.Adapters
 {
     public interface IFileAdapter
     {
-        IFile Create(string path);
+        IFile GetFile(string path);
     }
 }

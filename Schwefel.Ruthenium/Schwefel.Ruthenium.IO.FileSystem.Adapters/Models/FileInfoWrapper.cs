@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Schwefel.Ruthenium.IO.FileSystem.Adapters.Models
 {
@@ -16,10 +13,13 @@ namespace Schwefel.Ruthenium.IO.FileSystem.Adapters.Models
         }
 
         /// <inheritdoc />
-        public bool DoesExists()
-        {
-            return _FileInfo.Exists;
-        }
+        public bool Exists => _FileInfo.Exists;
+
+        /// <inheritdoc />
+        public string FullPath => _FileInfo.FullName;
+
+        /// <inheritdoc />
+        public string FileName => _FileInfo.Name;
 
         /// <inheritdoc />
         public bool Create()

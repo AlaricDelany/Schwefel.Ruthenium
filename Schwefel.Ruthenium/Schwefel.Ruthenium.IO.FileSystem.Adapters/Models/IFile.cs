@@ -7,7 +7,11 @@ namespace Schwefel.Ruthenium.IO.FileSystem.Adapters.Models
 {
     public interface IFile
     {
-        bool DoesExists();
+        bool Exists { get;  }
+
+        string FullPath { get; }
+
+        string FileName { get; }
 
         bool Create();
 
