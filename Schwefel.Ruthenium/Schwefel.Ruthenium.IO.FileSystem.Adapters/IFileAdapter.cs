@@ -1,0 +1,10 @@
+﻿
+using Schwefel.Ruthenium.IO.FileSystem.Adapters.Models;
+
+namespace Schwefel.Ruthenium.IO.FileSystem.Adapters
+{
+    public interface IFileAdapter
+    {
+        IFile Create(string path);
+    }
+}
