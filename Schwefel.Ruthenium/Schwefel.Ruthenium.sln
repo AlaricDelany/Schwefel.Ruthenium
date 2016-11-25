@@ -24,6 +24,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Schwefel.Ruthenium.Threadin
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Schwefel.Ruthenium.IO.FileSystem.Adapters", "Schwefel.Ruthenium.IO.FileSystem.Adapters\Schwefel.Ruthenium.IO.FileSystem.Adapters.xproj", "{D1003870-BC90-4A27-BF7A-ED571B3E1D8E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{795142DB-0FDD-4507-AA6A-030D3956DDC1}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Schwefel.Ruthenium.Shared\Schwefel.Ruthenium.Shared.projitems*{46cd27e1-1bc9-4e09-ad56-34fb454d7905}*SharedItemsImports = 13

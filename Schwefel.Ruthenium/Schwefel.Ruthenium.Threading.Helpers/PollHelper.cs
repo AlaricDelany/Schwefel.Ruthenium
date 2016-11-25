@@ -31,7 +31,7 @@ namespace Schwefel.Ruthenium.Threading.Helpers
 
             while(!lResult.IsFinished)
             {
-                if((lStartTime + timeSpanTillTimeout) >= DateTime.UtcNow)
+                if((lStartTime + timeSpanTillTimeout) <= DateTime.UtcNow)
                     throw new TimeoutException(timeoutErrorMessage);
 
                 DateTime lStartExecution = DateTime.UtcNow;
@@ -66,7 +66,9 @@ namespace Schwefel.Ruthenium.Threading.Helpers
 
             lPollTask.ConfigureAwait(false);
 
-            return lPollTask.Result;
+            PollHelperResult lPollHelperResult = lPollTask.Result;
+
+            return lPollHelperResult;
         }
     }
 }
