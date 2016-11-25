@@ -12,11 +12,25 @@ namespace Schwefel.Ruthenium.IO.FileSystem.Adapters.Models
             _FileInfo = new FileInfo(fullPath);
         }
 
+        public FileInfoWrapper(FileInfo fileInfo)
+        {
+            _FileInfo = fileInfo;
+        }
+
         /// <inheritdoc />
         public bool Exists => _FileInfo.Exists;
 
         /// <inheritdoc />
+        public string Name => _FileInfo.Name;
+
+        /// <inheritdoc />
+        public string Path => _FileInfo.Directory.Name;
+
+        /// <inheritdoc />
         public string FullPath => _FileInfo.FullName;
+
+        /// <inheritdoc />
+        public IDirectory ParentDirectory => new DirectoryInfoWrapper(_FileInfo.Directory);
 
         /// <inheritdoc />
         public string FileName => _FileInfo.Name;
@@ -58,7 +72,7 @@ namespace Schwefel.Ruthenium.IO.FileSystem.Adapters.Models
         /// <inheritdoc />
         public string Rename(string newName)
         {
-            _FileInfo.CopyTo(Path.Combine(_FileInfo.Directory.FullName, newName));
+            _FileInfo.CopyTo(System.IO.Path.Combine(_FileInfo.Directory.FullName, newName));
 
             return _FileInfo.FullName;
         }
