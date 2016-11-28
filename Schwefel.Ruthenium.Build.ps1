@@ -48,7 +48,6 @@ $buildOutput = Resolve-Path $buildOutput
 & ".\Schwefel.Ruthenium.Restore.ps1"
 
 # Build Solution
-Write-Host "Start Building project.json projects"
 BuildProject "project.json"
 BuildProject "*.csproj"
 
