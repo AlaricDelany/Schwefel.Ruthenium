@@ -8,6 +8,22 @@ Param(
 Write-Host "Start Executing Pack"
 Set-Location $PSScriptRoot
 
+function PackProject($filter) {
+    Write-Host "Start Pack for $filter Projects"
+
+    Get-ChildItem ".\Schwefel.Ruthenium" -File -Recurse -Filter $filter | 
+    Foreach-Object {
+        Write-Host ("Packing " + $_.DirectoryName)
+    
+        $packOutputCurrent = (Join-Path $packOutput -ChildPath $_.Directory.Name)
+    
+        Write-Host "Build Output is set to: $packOutputCurrent"
+
+        dotnet pack $_.FullName --configuration $configuration --version-suffix $packVersionSuffix --output "$packOutputCurrent"
+
+    }
+    Write-Host "Finished Pack for $filter Projects"
+}
 
 $packOutput = ".\Pack\$configuration"
 $packVersionSuffix = ""
@@ -30,15 +46,8 @@ $packOutput = Resolve-Path $packOutput
 Write-Host "Build Version suffix: $packVersionSuffix"
 
 # Pack Projects
-Get-ChildItem ".\Schwefel.Ruthenium" -File -Recurse -Filter project.json | 
-Foreach-Object {
-    Write-Host ("Packing " + $_.DirectoryName)
-    
-    $packOutputCurrent = (Join-Path $packOutput -ChildPath $_.Directory.Name)
-    
-    Write-Host "Build Output is set to: $packOutputCurrent"
+PackProject "project.json"
+PackProject "*.csproj"
 
-    dotnet pack $_.FullName --configuration $configuration --version-suffix $packVersionSuffix --output "$packOutputCurrent" --no-build 
 
-}
 Write-Host "Finished Executing Pack"

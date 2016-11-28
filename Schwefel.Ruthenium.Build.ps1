@@ -8,6 +8,21 @@ Param(
 Write-Host "Start Build"
 Set-Location $PSScriptRoot
 
+function BuildProject($filter) {
+    Write-Host "Start Building $filter projects"
+
+    Get-ChildItem ".\Schwefel.Ruthenium" -File -Recurse -Filter $filter | 
+    Foreach-Object {
+        Write-Host ("Building " + $_.DirectoryName)
+    
+        $buildOutputCurrent = (Join-Path $buildOutput -ChildPath $_.Directory.Name)
+    
+        Write-Host "Build Output is set to: $buildOutputCurrent"
+
+        dotnet build $_.FullName --configuration $configuration --version-suffix $buildVersionSuffix --framework netstandard1.6 --output "$buildOutputCurrent" --no-incremental
+    }
+    Write-Host "Finished Building $filter Projects"
+}
 
 $buildOutput = ".\Build\$configuration"
 $buildVersionSuffix = ""
@@ -33,15 +48,8 @@ $buildOutput = Resolve-Path $buildOutput
 & ".\Schwefel.Ruthenium.Restore.ps1"
 
 # Build Solution
-Get-ChildItem ".\Schwefel.Ruthenium" -File -Recurse -Filter project.json | 
-Foreach-Object {
-    Write-Host ("Building " + $_.DirectoryName)
-    
-    $buildOutputCurrent = (Join-Path $buildOutput -ChildPath $_.Directory.Name)
+Write-Host "Start Building project.json projects"
+BuildProject "project.json"
+BuildProject "*.csproj"
 
-    
-    Write-Host "Build Output is set to: $buildOutputCurrent"
-
-    dotnet build $_.FullName --configuration $configuration --version-suffix $buildVersionSuffix --framework netstandard1.6 --output "$buildOutputCurrent" --no-incremental
-}
 Write-Host "Finished Executing Build"
