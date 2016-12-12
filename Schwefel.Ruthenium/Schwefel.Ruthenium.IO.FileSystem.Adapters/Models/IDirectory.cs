@@ -7,7 +7,7 @@ namespace Schwefel.Ruthenium.IO.FileSystem.Adapters.Models
     {
         IEnumerable<IFile> GetFiles();
         IEnumerable<IDirectory> GetSubDirectories();
+        bool Delete(bool recursive);
 
-        
     }
 }

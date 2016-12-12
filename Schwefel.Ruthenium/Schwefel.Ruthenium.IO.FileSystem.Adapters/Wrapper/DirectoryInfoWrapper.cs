@@ -55,16 +55,36 @@ namespace Schwefel.Ruthenium.IO.FileSystem.Adapters.Models
         {
             try
             {
-                if(_directoryInfo.Exists)
-                    _directoryInfo.Delete();
+                DeleteInternal(false);
 
                 return true;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 //TODO: Log Error
                 return false;
             }
+        }
+
+        public bool Delete(bool recursive)
+        {
+            try
+            {
+                DeleteInternal(recursive);
+
+                return true;
+            }
+            catch(Exception)
+            {
+                //TODO: Log Error
+                return false;
+            }
+        }
+
+        private void DeleteInternal(bool recursive)
+        {
+            if(_directoryInfo.Exists)
+                _directoryInfo.Delete(recursive);
         }
 
         /// <inheritdoc />
