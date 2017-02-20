@@ -5,7 +5,10 @@ VisualStudioVersion = 15.0.26206.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{EED74352-5764-43C0-BCF0-7762FDA2FDF2}"
 	ProjectSection(SolutionItems) = preProject
-		Global.xml = Global.xml
+		Schwefel.Ruthenium.Build.ps1 = Schwefel.Ruthenium.Build.ps1
+		Schwefel.Ruthenium.Pack.ps1 = Schwefel.Ruthenium.Pack.ps1
+		Schwefel.Ruthenium.Publish.ps1 = Schwefel.Ruthenium.Publish.ps1
+		Schwefel.Ruthenium.Restore.ps1 = Schwefel.Ruthenium.Restore.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{795142DB-0FDD-4507-AA6A-030D3956DDC1}"

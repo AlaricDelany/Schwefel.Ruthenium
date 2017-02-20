@@ -19,7 +19,7 @@ function BuildProject($filter) {
     
         Write-Host "Build Output is set to: $buildOutputCurrent"
 
-        dotnet build $_.FullName --configuration $configuration --version-suffix $buildVersionSuffix --output "$buildOutputCurrent" --no-incremental
+        dotnet build $_.FullName --configuration $configuration --version-suffix $buildVersionSuffix --output "$buildOutputCurrent" --no-incremental --framework "netstandard1.6"
     }
     Write-Host "Finished Building $filter Projects"
 }
