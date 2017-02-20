@@ -11,7 +11,7 @@ Set-Location $PSScriptRoot
 function PackProject($filter) {
     Write-Host "Start Pack for $filter Projects"
 
-    Get-ChildItem ".\Schwefel.Ruthenium" -File -Recurse -Filter $filter | 
+    Get-ChildItem ".\" -File -Recurse -Filter $filter | 
     Foreach-Object {
         Write-Host ("Packing " + $_.DirectoryName)
     

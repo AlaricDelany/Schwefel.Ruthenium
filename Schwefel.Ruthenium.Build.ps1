@@ -11,7 +11,7 @@ Set-Location $PSScriptRoot
 function BuildProject($filter) {
     Write-Host "Start Building $filter projects"
 
-    Get-ChildItem ".\Schwefel.Ruthenium" -File -Recurse -Filter $filter | 
+    Get-ChildItem ".\" -File -Recurse -Filter $filter | 
     Foreach-Object {
         Write-Host ("Building " + $_.DirectoryName)
     
@@ -19,7 +19,7 @@ function BuildProject($filter) {
     
         Write-Host "Build Output is set to: $buildOutputCurrent"
 
-        dotnet build $_.FullName --configuration $configuration --version-suffix $buildVersionSuffix --framework netstandard1.6 --output "$buildOutputCurrent" --no-incremental
+        dotnet build $_.FullName --configuration $configuration --version-suffix $buildVersionSuffix --output "$buildOutputCurrent" --no-incremental
     }
     Write-Host "Finished Building $filter Projects"
 }
