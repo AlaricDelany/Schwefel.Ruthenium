@@ -8,4 +8,8 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Schwefel.Ruthenium.Logging\Schwefel.Ruthenium.Logging.csproj" />
+  </ItemGroup>
+
 </Project>
