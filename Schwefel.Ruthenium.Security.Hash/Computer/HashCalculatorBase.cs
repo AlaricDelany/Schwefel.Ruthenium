@@ -5,9 +5,11 @@ using Microsoft.Extensions.Logging;
 using Schwefel.Ruthenium.Logging;
 using System.Linq;
 
-namespace Schwefel.Ruthenium.Security.Hash.Computer {
+namespace Schwefel.Ruthenium.Security.Hash.Computer
+{
     public class HashCalculatorBase<THashAlgorithm>
-        : IHashComputerWithHahAlgorithm<THashAlgorithm> where THashAlgorithm : HashAlgorithm {
+        : IHashComputerWithHahAlgorithm<THashAlgorithm> where THashAlgorithm : HashAlgorithm
+    {
 
         #region constants
 
@@ -21,15 +23,15 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer {
         protected internal HashCalculatorBase(
             THashAlgorithm cryptoserviceProvider
             ,
-            Encoding               encoding
-            ,                      
-            bool                   removeSeperators
-            ,                      
-            int?                maxLenght
-            ,                      
-            string                 startSalt
-            ,                      
-            string                 endSalt
+            Encoding encoding
+            ,
+            bool removeSeperators
+            ,
+            int? maxLenght
+            ,
+            string startSalt
+            ,
+            string endSalt
             )
         {
             HashAlgorithm = cryptoserviceProvider;
@@ -102,22 +104,23 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer {
             return input.Replace(seperator, string.Empty);
         }
 
-        public string ComputeHash(string input) {
+        public string ComputeHash(string input)
+        {
             _Logger.LogDebug($"{nameof(ComputeHash)} - {nameof(THashAlgorithm)}: {typeof(THashAlgorithm).FullName} {nameof(input)}: \"{input}\"");
 
             if(input == null)
                 throw new ArgumentNullException(nameof(input));
 
-            string lHash             = ComputeHashInternal(
-                cryptoProvider:                 HashAlgorithm
-                , input:                        input
-                , startSalt:                    StartSalt
-                , endSalt:                      EndSalt
-                , maxLenght:                    MaxLenght
-                , beforeCalculateHashDelegate:  BeforeCalculateHashDelegate
-                , afterCalculateHashDelegate:   AfterCalculateHashDelegate
-                , removeSeperators:             RemoveSeperators
-            , encoding:                     DefaultEncoding
+            string lHash = ComputeHashInternal(
+                cryptoProvider: HashAlgorithm
+                , input: input
+                , startSalt: StartSalt
+                , endSalt: EndSalt
+                , maxLenght: MaxLenght
+                , beforeCalculateHashDelegate: BeforeCalculateHashDelegate
+                , afterCalculateHashDelegate: AfterCalculateHashDelegate
+                , removeSeperators: RemoveSeperators
+            , encoding: DefaultEncoding
             );
 
             return lHash;
@@ -153,7 +156,8 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer {
             return hashInputWithSalt;
         }
 
-        public string ComputeHash(THashAlgorithm cryptoProvider, string input) {
+        public string ComputeHash(THashAlgorithm cryptoProvider, string input)
+        {
             _Logger.LogDebug($"{nameof(ComputeHash)} - {nameof(THashAlgorithm)}: {typeof(THashAlgorithm).FullName} {nameof(input)}: \"{input}\"");
 
             if(input == null)
@@ -162,66 +166,67 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer {
                 throw new ArgumentNullException(nameof(cryptoProvider));
 
             string lHash = ComputeHashInternal(
-                cryptoProvider:                 cryptoProvider
-                , input:                        input
-                , startSalt:                    StartSalt
-                , endSalt:                      EndSalt
-                , maxLenght:                    MaxLenght
-                , beforeCalculateHashDelegate:  BeforeCalculateHashDelegate
-                , afterCalculateHashDelegate:   AfterCalculateHashDelegate
-                , removeSeperators:             RemoveSeperators
-                , encoding:                     DefaultEncoding
+                cryptoProvider: cryptoProvider
+                , input: input
+                , startSalt: StartSalt
+                , endSalt: EndSalt
+                , maxLenght: MaxLenght
+                , beforeCalculateHashDelegate: BeforeCalculateHashDelegate
+                , afterCalculateHashDelegate: AfterCalculateHashDelegate
+                , removeSeperators: RemoveSeperators
+                , encoding: DefaultEncoding
                 );
 
             return lHash;
         }
 
         private static string ComputeHashInternal(
-            THashAlgorithm  cryptoProvider,
-            string                  input,
-            Encoding                encoding,
-            bool                    removeSeperators,
-            int                     maxLenght                   = int.MaxValue,
-            Func<string, string>    afterCalculateHashDelegate  = null,
-            Func<string, string>    beforeCalculateHashDelegate = null,
-            string                  startSalt                   = null,
-            string                  endSalt                     = null
-                                 
-            ) {
+            THashAlgorithm cryptoProvider,
+            string input,
+            Encoding encoding,
+            bool removeSeperators,
+            int maxLenght = int.MaxValue,
+            Func<string, string> afterCalculateHashDelegate = null,
+            Func<string, string> beforeCalculateHashDelegate = null,
+            string startSalt = null,
+            string endSalt = null
+
+            )
+        {
             _Logger.LogDebug($"{nameof(ComputeHashInternal)} - {nameof(THashAlgorithm)}: {typeof(THashAlgorithm).FullName} {nameof(input)}: \"{input}\"");
 
             string lInputAfterBeforeCalculateDelegateExecution = beforeCalculateHashDelegate != null
                 ? beforeCalculateHashDelegate(input)
                 : input;
 
-            if (string.IsNullOrEmpty(lInputAfterBeforeCalculateDelegateExecution))
+            if(string.IsNullOrEmpty(lInputAfterBeforeCalculateDelegateExecution))
             {
                 _Logger.LogWarning($"The {nameof(input)}: \"{input}\" results after the {beforeCalculateHashDelegate} execution to a null or empty string.");
                 throw new ArgumentNullException(nameof(lInputAfterBeforeCalculateDelegateExecution));
             }
-            string lInputWithSalt   = CombineInputWithSaltInternal(lInputAfterBeforeCalculateDelegateExecution, startSalt, endSalt);
-            byte[] lInputData       = encoding.GetBytes(lInputWithSalt);
+            string lInputWithSalt = CombineInputWithSaltInternal(lInputAfterBeforeCalculateDelegateExecution, startSalt, endSalt);
+            byte[] lInputData = encoding.GetBytes(lInputWithSalt);
             byte[] lInputDataHashed = cryptoProvider.ComputeHash(lInputData);
-            string lHashRaw         = BitConverter.ToString(lInputDataHashed);
+            string lHashRaw = BitConverter.ToString(lInputDataHashed);
 
             if(string.IsNullOrEmpty(lHashRaw))
                 _Logger.LogWarning($"{nameof(ComputeHash)} - {nameof(input)}: \"{input}\" {nameof(lInputAfterBeforeCalculateDelegateExecution)}: \"{lInputAfterBeforeCalculateDelegateExecution}\" results a null or empty string");
 
-            string  lHash           = lHashRaw;
+            string lHash = lHashRaw;
 
             if(removeSeperators)
                 lHash = RemoveSeperator(lHash);
-            
+
             if(afterCalculateHashDelegate != null)
                 lHash = afterCalculateHashDelegate(lHash);
 
-            if (string.IsNullOrWhiteSpace(lHash))
+            if(string.IsNullOrWhiteSpace(lHash))
             {
                 _Logger.LogWarning($"{nameof(ComputeHash)} - {nameof(lHashRaw)}: \"{lHashRaw}\" {nameof(AfterCalculateHashDelegate)}: \"{lHash}\" results a null or empty string");
                 return null;
             }
-            if (lHash.Length > maxLenght + 1)
-                lHash = lHash.Substring(0, (int)maxLenght);
+            if(lHash.Length > maxLenght + 1)
+                lHash = lHash.Substring(0, maxLenght);
 
             return lHash;
         }
