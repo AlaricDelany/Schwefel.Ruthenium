@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Schwefel.Ruthenium.Threading.Helpers
@@ -20,37 +21,48 @@ namespace Schwefel.Ruthenium.Threading.Helpers
             public Exception Exception { get; set; }
         }
 
-        public static async Task<PollHelperResult> PollUntilTrueAsync(Func<bool> pollFunc, TimeSpan timeSpanTillTimeout,
-            string timeoutErrorMessage, TimeSpan? pollInterval = null)
+        public static async Task<PollHelperResult> PollUntilTrueAsync(Func<bool> pollFunc, TimeSpan timeSpanTillTimeoutOverAll,
+            string timeoutErrorMessage, double pollIntervalMilliSeconds, int maxSecondsForEachRun = 60_000)
         {
-            if(pollInterval == null || pollInterval <= TimeSpan.Zero)
-                pollInterval = TimeSpan.FromSeconds(1);
+            return await PollUntilTrueAsync(async () =>  await Task.FromResult(pollFunc()), timeSpanTillTimeoutOverAll, timeoutErrorMessage, pollIntervalMilliSeconds, maxSecondsForEachRun);
+        }
+
+        public static async Task<PollHelperResult> PollUntilTrueAsync(Func<Task<bool>> pollFunc, TimeSpan timeSpanTillTimeoutOverAll,
+            string timeoutErrorMessage, double pollIntervalMilliSeconds, int maxSecondsForEachRun = 60_000)
+        {
+            TimeSpan pollInterval = TimeSpan.FromSeconds(1);
+
+            if(pollIntervalMilliSeconds > -1)
+                pollInterval = TimeSpan.FromMilliseconds(pollIntervalMilliSeconds);
 
             DateTime lStartTime = DateTime.UtcNow;
             PollHelperResult lResult = new PollHelperResult();
 
             while(!lResult.IsFinished)
             {
-                if((lStartTime + timeSpanTillTimeout) <= DateTime.UtcNow)
+                if((lStartTime + timeSpanTillTimeoutOverAll) <= DateTime.UtcNow)
                     throw new TimeoutException(timeoutErrorMessage);
 
                 DateTime lStartExecution = DateTime.UtcNow;
                 DateTime lEndExecution = lStartExecution;
-                await Task.Run(() =>
+                using(CancellationTokenSource tokenSource = new CancellationTokenSource(maxSecondsForEachRun))
                 {
-                    try
-                    {
-                        lResult.IsFinished = pollFunc();
-                    }
-                    catch(Exception ex)
-                    {
-                        lResult.Exception = ex;
-                        lResult.IsFinished = true;
-                    }
-                    lEndExecution = DateTime.UtcNow;
+                    await Task.Run(async () =>
+                        {
+                            try
+                            {
+                                lResult.IsFinished = await pollFunc();
+                            }
+                            catch(Exception ex)
+                            {
+                                lResult.Exception = ex;
+                                lResult.IsFinished = true;
+                            }
+                            lEndExecution = DateTime.UtcNow;
 
-                });
-                TimeSpan lTimeToWaitTillNextInterval = pollInterval.Value - (lEndExecution - lStartExecution);
+                        }, tokenSource.Token);
+                }
+                TimeSpan lTimeToWaitTillNextInterval = pollInterval - (lEndExecution - lStartExecution);
 
                 if(lTimeToWaitTillNextInterval.Ticks > 0)
                     await Task.Delay(lTimeToWaitTillNextInterval);
@@ -59,11 +71,11 @@ namespace Schwefel.Ruthenium.Threading.Helpers
 
         }
 
-        public static PollHelperResult PollUntilTrue(Func<bool> pollFunc, TimeSpan timeSpanTillTimeout,
-            string timeoutErrorMessage, TimeSpan? pollInterval = null)
+        public static PollHelperResult PollUntilTrue(Func<bool> pollFunc, TimeSpan timeSpanTillTimeoutOverAll,
+            string timeoutErrorMessage, double pollIntervalMilliSeconds, int maxSecondsForEachRun = 60_000)
         {
-            Task<PollHelperResult> lPollTask = PollUntilTrueAsync(pollFunc, timeSpanTillTimeout, timeoutErrorMessage,
-                pollInterval);
+            Task<PollHelperResult> lPollTask = PollUntilTrueAsync(pollFunc, timeSpanTillTimeoutOverAll, timeoutErrorMessage,
+                pollIntervalMilliSeconds, maxSecondsForEachRun);
 
             lPollTask.ConfigureAwait(false);
             lPollTask.Wait(TimeSpan.FromMinutes(15));
