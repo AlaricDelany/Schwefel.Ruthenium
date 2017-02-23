@@ -8,7 +8,7 @@ namespace Schwefel.Ruthenium.Security.Hash
         {
             get;
         }
-        ushort MaxLenght
+        int MaxLenght
         {
             get;
         }

@@ -3,40 +3,37 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Schwefel.Ruthenium.Logging;
+using System.Linq;
 
 namespace Schwefel.Ruthenium.Security.Hash.Computer {
-    public class HashCalculatorBase<TCryptoserviceProvider>
-        : IHashComputerWithCryptoserviceProvider<TCryptoserviceProvider> where TCryptoserviceProvider : HashAlgorithm {
+    public class HashCalculatorBase<THashAlgorithm>
+        : IHashComputerWithHahAlgorithm<THashAlgorithm> where THashAlgorithm : HashAlgorithm {
 
         #region constants
 
         private static readonly ILogger _Logger =
-            LoggingHelper.CreateLogger<HashCalculatorBase<TCryptoserviceProvider>>();
+            LoggingHelper.CreateLogger<HashCalculatorBase<THashAlgorithm>>();
 
         #endregion constants
 
         #region constrcutors
 
         protected internal HashCalculatorBase(
-            TCryptoserviceProvider cryptoserviceProvider
+            THashAlgorithm cryptoserviceProvider
             ,
             Encoding               encoding
             ,                      
             bool                   removeSeperators
             ,                      
-            ushort?                maxLenght
+            int?                maxLenght
             ,                      
             string                 startSalt
             ,                      
             string                 endSalt
             )
         {
-            CryptoserviceProvider = cryptoserviceProvider;
-
-            if(encoding == null)
-                throw new ArgumentNullException(nameof(encoding));
-
-            DefaultEncoding = encoding;
+            HashAlgorithm = cryptoserviceProvider;
+            DefaultEncoding = encoding ?? throw new ArgumentNullException(nameof(encoding));
             RemoveSeperators = removeSeperators;
             StartSalt = startSalt;
             EndSalt = endSalt;
@@ -63,7 +60,7 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer {
         /// <inheritdoc />
         public string EndSalt { get; }
 
-        public ushort MaxLenght
+        public int MaxLenght
         {
             get;
         }
@@ -74,21 +71,15 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer {
 
         protected Func<string, string> AfterCalculateHashDelegate = null;
         protected Func<string, string> BeforeCalculateHashDelegate = null;
-        protected readonly TCryptoserviceProvider CryptoserviceProvider;
+        protected readonly THashAlgorithm HashAlgorithm;
 
         #endregion fields
 
         #region methods
 
-        protected static string Invert(string input)
+        protected static string ReverseString(string input)
         {
-            string result = string.Empty;
-
-            for(int index = input.Length - 1; index >= 0; index--)
-            {
-                result += input[index];
-            }
-            return result;
+            return new string(input.Reverse().ToArray());
         }
 
         protected static string RemoveSeperator(string input, string seperator = "-")
@@ -97,6 +88,7 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer {
 
             if(string.IsNullOrEmpty(seperator))
                 throw new ArgumentNullException(nameof(seperator));
+
             if(input == null)
             {
                 _Logger.LogInformation($"{nameof(RemoveSeperator)} - {nameof(input)} is null");
@@ -111,13 +103,13 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer {
         }
 
         public string ComputeHash(string input) {
-            _Logger.LogDebug($"{nameof(ComputeHash)} - {nameof(TCryptoserviceProvider)}: {typeof(TCryptoserviceProvider).FullName} {nameof(input)}: \"{input}\"");
+            _Logger.LogDebug($"{nameof(ComputeHash)} - {nameof(THashAlgorithm)}: {typeof(THashAlgorithm).FullName} {nameof(input)}: \"{input}\"");
 
             if(input == null)
                 throw new ArgumentNullException(nameof(input));
 
             string lHash             = ComputeHashInternal(
-                cryptoProvider:                 CryptoserviceProvider
+                cryptoProvider:                 HashAlgorithm
                 , input:                        input
                 , startSalt:                    StartSalt
                 , endSalt:                      EndSalt
@@ -132,28 +124,21 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer {
         }
 
         /// <inheritdoc />
-        protected ushort CalculateDefaultMaxLenght()
+        protected int CalculateDefaultMaxLenght()
         {
-            return CalculateDefaultMaxLenghtInternal(CryptoserviceProvider, DefaultEncoding, RemoveSeperators);
+            return CalculateDefaultMaxLenghtInternal(HashAlgorithm, DefaultEncoding, RemoveSeperators);
         }
 
-        private static ushort CalculateDefaultMaxLenghtInternal(TCryptoserviceProvider cryptoProvider, Encoding defaultEncoding, bool removeSeperators)
+        private static int CalculateDefaultMaxLenghtInternal(THashAlgorithm cryptoProvider, Encoding defaultEncoding, bool removeSeperators)
         {
             string lHash = ComputeHashInternal(cryptoProvider, "DEFAULT", defaultEncoding, removeSeperators);
 
-            return (ushort)lHash.Length;
+            return lHash.Length;
         }
 
         protected virtual string CombineInputWithSalt(string input)
         {
-            string hashInputWithSalt = input;
-
-            if(!String.IsNullOrWhiteSpace(StartSalt))
-                hashInputWithSalt = $"{StartSalt}_{hashInputWithSalt}";
-            if(!String.IsNullOrWhiteSpace(EndSalt))
-                hashInputWithSalt = $"{hashInputWithSalt}_{EndSalt}";
-
-            return hashInputWithSalt;
+            return CombineInputWithSaltInternal(input, StartSalt, EndSalt);
         }
 
         private static string CombineInputWithSaltInternal(string input, string startSalt, string endSalt)
@@ -168,8 +153,8 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer {
             return hashInputWithSalt;
         }
 
-        public string ComputeHash(TCryptoserviceProvider cryptoProvider, string input) {
-            _Logger.LogDebug($"{nameof(ComputeHash)} - {nameof(TCryptoserviceProvider)}: {typeof(TCryptoserviceProvider).FullName} {nameof(input)}: \"{input}\"");
+        public string ComputeHash(THashAlgorithm cryptoProvider, string input) {
+            _Logger.LogDebug($"{nameof(ComputeHash)} - {nameof(THashAlgorithm)}: {typeof(THashAlgorithm).FullName} {nameof(input)}: \"{input}\"");
 
             if(input == null)
                 throw new ArgumentNullException(nameof(input));
@@ -192,18 +177,18 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer {
         }
 
         private static string ComputeHashInternal(
-            TCryptoserviceProvider  cryptoProvider,
+            THashAlgorithm  cryptoProvider,
             string                  input,
             Encoding                encoding,
             bool                    removeSeperators,
-            ushort                  maxLenght                   = ushort.MaxValue,
+            int                     maxLenght                   = int.MaxValue,
             Func<string, string>    afterCalculateHashDelegate  = null,
             Func<string, string>    beforeCalculateHashDelegate = null,
             string                  startSalt                   = null,
             string                  endSalt                     = null
                                  
             ) {
-            _Logger.LogDebug($"{nameof(ComputeHashInternal)} - {nameof(TCryptoserviceProvider)}: {typeof(TCryptoserviceProvider).FullName} {nameof(input)}: \"{input}\"");
+            _Logger.LogDebug($"{nameof(ComputeHashInternal)} - {nameof(THashAlgorithm)}: {typeof(THashAlgorithm).FullName} {nameof(input)}: \"{input}\"");
 
             string lInputAfterBeforeCalculateDelegateExecution = beforeCalculateHashDelegate != null
                 ? beforeCalculateHashDelegate(input)
@@ -236,7 +221,7 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer {
                 return null;
             }
             if (lHash.Length > maxLenght + 1)
-                lHash = lHash.Substring(0, maxLenght);
+                lHash = lHash.Substring(0, (int)maxLenght);
 
             return lHash;
         }
