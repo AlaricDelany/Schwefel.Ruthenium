@@ -21,8 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schwefel.Ruthenium.Dependen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schwefel.Ruthenium.IO.FileSystem.Adapters", "Schwefel.Ruthenium.IO.FileSystem.Adapters\Schwefel.Ruthenium.IO.FileSystem.Adapters.csproj", "{30F57EC8-4256-4BDF-80F7-EAD842A3568A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schwefel.Ruthenium.Logging", "Schwefel.Ruthenium.Logging\Schwefel.Ruthenium.Logging.csproj", "{96FD58A0-F06E-472E-AB1B-F9A5AD66F92C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schwefel.Ruthenium.Reflection.Attributes.Helpers", "Schwefel.Ruthenium.Reflection.Attributes.Helpers\Schwefel.Ruthenium.Reflection.Attributes.Helpers.csproj", "{5EC23B23-A5D0-4758-BFDD-7BE7AF19F45C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schwefel.Ruthenium.Reflection.Helpers", "Schwefel.Ruthenium.Reflection.Helpers\Schwefel.Ruthenium.Reflection.Helpers.csproj", "{02BDCC38-7078-4643-9C17-40C396F3F8D4}"
@@ -91,18 +89,6 @@ Global
 		{30F57EC8-4256-4BDF-80F7-EAD842A3568A}.Release|x64.Build.0 = Release|x64
 		{30F57EC8-4256-4BDF-80F7-EAD842A3568A}.Release|x86.ActiveCfg = Release|x86
 		{30F57EC8-4256-4BDF-80F7-EAD842A3568A}.Release|x86.Build.0 = Release|x86
-		{96FD58A0-F06E-472E-AB1B-F9A5AD66F92C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{96FD58A0-F06E-472E-AB1B-F9A5AD66F92C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{96FD58A0-F06E-472E-AB1B-F9A5AD66F92C}.Debug|x64.ActiveCfg = Debug|x64
-		{96FD58A0-F06E-472E-AB1B-F9A5AD66F92C}.Debug|x64.Build.0 = Debug|x64
-		{96FD58A0-F06E-472E-AB1B-F9A5AD66F92C}.Debug|x86.ActiveCfg = Debug|x86
-		{96FD58A0-F06E-472E-AB1B-F9A5AD66F92C}.Debug|x86.Build.0 = Debug|x86
-		{96FD58A0-F06E-472E-AB1B-F9A5AD66F92C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{96FD58A0-F06E-472E-AB1B-F9A5AD66F92C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{96FD58A0-F06E-472E-AB1B-F9A5AD66F92C}.Release|x64.ActiveCfg = Release|x64
-		{96FD58A0-F06E-472E-AB1B-F9A5AD66F92C}.Release|x64.Build.0 = Release|x64
-		{96FD58A0-F06E-472E-AB1B-F9A5AD66F92C}.Release|x86.ActiveCfg = Release|x86
-		{96FD58A0-F06E-472E-AB1B-F9A5AD66F92C}.Release|x86.Build.0 = Release|x86
 		{5EC23B23-A5D0-4758-BFDD-7BE7AF19F45C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5EC23B23-A5D0-4758-BFDD-7BE7AF19F45C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EC23B23-A5D0-4758-BFDD-7BE7AF19F45C}.Debug|x64.ActiveCfg = Debug|x64

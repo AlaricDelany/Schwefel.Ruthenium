@@ -2,25 +2,19 @@
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Logging;
-using Schwefel.Ruthenium.Logging;
 using System.Linq;
+using Schwefel.Ruthenium.DependencyInjection;
 
 namespace Schwefel.Ruthenium.Security.Hash.Computer
 {
     public class HashCalculatorBase<THashAlgorithm>
         : IHashComputerWithHahAlgorithm<THashAlgorithm> where THashAlgorithm : HashAlgorithm
     {
-
-        #region constants
-
-        private static readonly ILogger _Logger =
-            LoggingHelper.CreateLogger<HashCalculatorBase<THashAlgorithm>>();
-
-        #endregion constants
-
         #region constrcutors
 
         protected internal HashCalculatorBase(
+            IDependencyInjectionContainer diContainer
+            ,
             THashAlgorithm cryptoserviceProvider
             ,
             Encoding encoding
@@ -40,6 +34,9 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer
             StartSalt = startSalt;
             EndSalt = endSalt;
             MaxLenght = maxLenght ?? CalculateDefaultMaxLenght();
+
+            _diContainer = diContainer;
+            _Logger = _diContainer.GetLogger<HashCalculatorBase<THashAlgorithm>>();
         }
 
         #endregion
@@ -74,6 +71,8 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer
         protected Func<string, string> AfterCalculateHashDelegate = null;
         protected Func<string, string> BeforeCalculateHashDelegate = null;
         protected readonly THashAlgorithm HashAlgorithm;
+        private IDependencyInjectionContainer _diContainer = null;
+        private ILogger _Logger = null;
 
         #endregion fields
 
@@ -84,7 +83,7 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer
             return new string(input.Reverse().ToArray());
         }
 
-        protected static string RemoveSeperator(string input, string seperator = "-")
+        protected string RemoveSeperator(string input, string seperator = "-")
         {
             _Logger.LogDebug($"{nameof(RemoveSeperator)} - {nameof(input)}: \"{input}\" {nameof(seperator)}: \"{seperator}\"");
 
@@ -132,7 +131,7 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer
             return CalculateDefaultMaxLenghtInternal(HashAlgorithm, DefaultEncoding, RemoveSeperators);
         }
 
-        private static int CalculateDefaultMaxLenghtInternal(THashAlgorithm cryptoProvider, Encoding defaultEncoding, bool removeSeperators)
+        private int CalculateDefaultMaxLenghtInternal(THashAlgorithm cryptoProvider, Encoding defaultEncoding, bool removeSeperators)
         {
             string lHash = ComputeHashInternal(cryptoProvider, "DEFAULT", defaultEncoding, removeSeperators);
 
@@ -180,7 +179,7 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer
             return lHash;
         }
 
-        private static string ComputeHashInternal(
+        private string ComputeHashInternal(
             THashAlgorithm cryptoProvider,
             string input,
             Encoding encoding,
