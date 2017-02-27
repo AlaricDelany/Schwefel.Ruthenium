@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Schwefel.Ruthenium.DependencyInjection.Logging\Schwefel.Ruthenium.DependencyInjection.Logging.csproj" />
     <ProjectReference Include="..\Schwefel.Ruthenium.DependencyInjection\Schwefel.Ruthenium.DependencyInjection.csproj" />
   </ItemGroup>
 

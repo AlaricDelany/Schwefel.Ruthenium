@@ -35,16 +35,6 @@ namespace Schwefel.Ruthenium.DependencyInjection.AutofacAdapter
             return _LifetimeScope.IsRegistered(t);
         }
 
-        public void RegisterInstance<TInterface>(TInterface instance)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RegisterType<TInterface, TImplementation>()
-        {
-            throw new NotImplementedException();
-        }
-
         public T Resolve<T>()
         {
             return _LifetimeScope.Resolve<T>();

@@ -11,11 +11,5 @@ namespace Schwefel.Ruthenium.DependencyInjection
 
         T Resolve<T>();
         object Resolve(Type t);
-
-
-        void RegisterInstance<TInterface>(TInterface instance);
-        void RegisterType<TInterface, TImplementation>();
-
-
     }
 }
