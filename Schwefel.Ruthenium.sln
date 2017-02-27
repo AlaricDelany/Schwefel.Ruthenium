@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schwefel.Ruthenium.Security
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schwefel.Ruthenium.Threading.Helpers", "Schwefel.Ruthenium.Threading.Helpers\Schwefel.Ruthenium.Threading.Helpers.csproj", "{9A697764-E6EB-4118-B911-0250EE60D7F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schwefel.Ruthenium.DependencyInjection.Logging", "Schwefel.Ruthenium.DependencyInjection.Logging\Schwefel.Ruthenium.DependencyInjection.Logging.csproj", "{B596B841-9950-4F1E-A3B1-B67068E49296}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -149,6 +151,18 @@ Global
 		{9A697764-E6EB-4118-B911-0250EE60D7F9}.Release|x64.Build.0 = Release|x64
 		{9A697764-E6EB-4118-B911-0250EE60D7F9}.Release|x86.ActiveCfg = Release|x86
 		{9A697764-E6EB-4118-B911-0250EE60D7F9}.Release|x86.Build.0 = Release|x86
+		{B596B841-9950-4F1E-A3B1-B67068E49296}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B596B841-9950-4F1E-A3B1-B67068E49296}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B596B841-9950-4F1E-A3B1-B67068E49296}.Debug|x64.ActiveCfg = Debug|x64
+		{B596B841-9950-4F1E-A3B1-B67068E49296}.Debug|x64.Build.0 = Debug|x64
+		{B596B841-9950-4F1E-A3B1-B67068E49296}.Debug|x86.ActiveCfg = Debug|x86
+		{B596B841-9950-4F1E-A3B1-B67068E49296}.Debug|x86.Build.0 = Debug|x86
+		{B596B841-9950-4F1E-A3B1-B67068E49296}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B596B841-9950-4F1E-A3B1-B67068E49296}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B596B841-9950-4F1E-A3B1-B67068E49296}.Release|x64.ActiveCfg = Release|x64
+		{B596B841-9950-4F1E-A3B1-B67068E49296}.Release|x64.Build.0 = Release|x64
+		{B596B841-9950-4F1E-A3B1-B67068E49296}.Release|x86.ActiveCfg = Release|x86
+		{B596B841-9950-4F1E-A3B1-B67068E49296}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,6 +6,6 @@ namespace Schwefel.Ruthenium.DependencyInjection
 
     public interface IWithConstructContainerInformation : IDisposable
     {
-        OnContructContainer OnConstructing { get; }
+        event OnContructContainer OnConstructing;
     }
 }

@@ -7,17 +7,28 @@ namespace Schwefel.Ruthenium.DependencyInjection.AutofacAdapter
     public class AutofacDependencyInjectionContainerBuilder : IDependencyInjectionContainerBuilder
     {
         private ContainerBuilder _ContainerBuilder;
+        private OnContructContainer _OnConstructing;
 
         public AutofacDependencyInjectionContainerBuilder()
         {
             _ContainerBuilder = new ContainerBuilder();
         }
 
-        public OnContructContainer OnConstructing { get; private set; }
+        public event OnContructContainer OnConstructing
+        {
+            add
+            {
+                _OnConstructing += value;
+            }
+            remove
+            {
+                _OnConstructing -= value;
+            }
+        }
 
         public void Dispose()
         {
-            var listner = OnConstructing.GetInvocationList().ToArray();
+            var listner = _OnConstructing.GetInvocationList().ToArray();
 
             foreach(var constructionInstruction in listner?.Where(d => d != null).OfType<OnContructContainer>())
             {
@@ -30,7 +41,7 @@ namespace Schwefel.Ruthenium.DependencyInjection.AutofacAdapter
             var container = _ContainerBuilder.Build();
             var autofacDependencyInjectionContainer = new AutofacDependencyInjectionContainer(container);
 
-            OnConstructing?.Invoke(autofacDependencyInjectionContainer);
+            _OnConstructing?.Invoke(autofacDependencyInjectionContainer);
 
             return autofacDependencyInjectionContainer;
         }

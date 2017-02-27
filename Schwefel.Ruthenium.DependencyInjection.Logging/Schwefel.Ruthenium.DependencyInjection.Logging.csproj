@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Schwefel.Ruthenium.DependencyInjection\Schwefel.Ruthenium.DependencyInjection.csproj" />
+    <ProjectReference Include="..\Schwefel.Ruthenium.Logging\Schwefel.Ruthenium.Logging.csproj" />
+  </ItemGroup>
+
+</Project>
