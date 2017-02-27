@@ -2,7 +2,7 @@
 
 namespace Schwefel.Ruthenium.DependencyInjection
 {
-    public interface IDependencyInjectionContainer : IDisposable
+    public interface IDependencyInjectionContainer: IDisposable
     {
         
     }
