@@ -1,7 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>Alaric Delany</Authors>
+    <Company>Alaric Delany</Company>
+    <Product>Schwefel.Ruthenium</Product>
+    <PackageProjectUrl>https://github.com/AlaricDelany/Schwefel.Ruthenium</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/AlaricDelany/Schwefel.Ruthenium</RepositoryUrl>
   </PropertyGroup>
 
 </Project>
