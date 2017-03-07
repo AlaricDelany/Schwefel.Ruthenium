@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Schwefel.Ruthenium.Reflection.Helpers\Schwefel.Ruthenium.Reflection.Helpers.csproj" />
+    <Folder Include="Modules\" />
   </ItemGroup>
 
 </Project>
