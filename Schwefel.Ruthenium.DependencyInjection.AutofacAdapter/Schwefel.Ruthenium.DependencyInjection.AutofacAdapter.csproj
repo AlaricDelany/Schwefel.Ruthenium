@@ -1,18 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)GlobalPackageInfo.targets.xml" />
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.4</TargetFramework>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Authors>Alaric Delany</Authors>
-    <Company>Alaric Delany</Company>
-    <Product>Schwefel.Ruthenium</Product>
-    <PackageProjectUrl>https://github.com/AlaricDelany/Schwefel.Ruthenium</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/AlaricDelany/Schwefel.Ruthenium</RepositoryUrl>
+    <TargetFramework>netstandard1.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.4.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,3 +15,6 @@
   </ItemGroup>
 
 </Project>
+
+
+
