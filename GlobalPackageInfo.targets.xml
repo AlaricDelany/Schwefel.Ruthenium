@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-      <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+      <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
       <Authors>Alaric Delany</Authors>
       <Company>Alaric Delany</Company>
       <Product>Schwefel.Ruthenium</Product>
