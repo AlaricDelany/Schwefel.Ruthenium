@@ -1,26 +1,30 @@
 ﻿using Autofac;
 using Schwefel.Ruthenium.DependencyInjection.AutofacAdapter.Modules;
-using System;
 using System.Linq;
 
 namespace Schwefel.Ruthenium.DependencyInjection.AutofacAdapter
 {
-    public class AutofacDependencyInjectionContainerBuilder : IDependencyInjectionContainerBuilder<IAutofacModule>
+    public interface IAutofacDependencyInjectionContainerBuilder : IDependencyInjectionContainerBuilder<IAutofacModule>
     {
-        private ContainerBuilder _ContainerBuilder;
+        ContainerBuilder Builder { get; }
+    }
+
+    public class AutofacDependencyInjectionContainerBuilder : IAutofacDependencyInjectionContainerBuilder
+    {
+        public ContainerBuilder Builder { get; private set; }
 
         public AutofacDependencyInjectionContainerBuilder()
         {
-            _ContainerBuilder = new ContainerBuilder();
+            Builder = new ContainerBuilder();
         }
 
         public IDependencyInjectionContainer Build(params IAutofacModule[] modules)
         {
             foreach(var module in modules?.Where(m => m != null))
             {
-                _ContainerBuilder.RegisterModule(module);
+                Builder.RegisterModule(module);
             }
-            var container = _ContainerBuilder.Build();
+            var container = Builder.Build();
             var autofacDependencyInjectionContainer = new AutofacDependencyInjectionContainer(container);
 
             return autofacDependencyInjectionContainer;

@@ -4,13 +4,15 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.1</TargetFramework>
   </PropertyGroup>
-
+  
   <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="1.1.0" />
-    <PackageReference Include="System.ComponentModel" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Schwefel.Ruthenium.DependencyInjection.AutofacAdapter\Schwefel.Ruthenium.DependencyInjection.AutofacAdapter.csproj" />
+    <ProjectReference Include="..\Schwefel.Ruthenium.DependencyInjection.Web\Schwefel.Ruthenium.DependencyInjection.Web.csproj" />
     <ProjectReference Include="..\Schwefel.Ruthenium.DependencyInjection\Schwefel.Ruthenium.DependencyInjection.csproj" />
   </ItemGroup>
 
