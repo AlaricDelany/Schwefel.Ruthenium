@@ -10,7 +10,12 @@ namespace Schwefel.Ruthenium.DependencyInjection.AutofacAdapter.Modules
     {
         public LoggingModule(params OnConstructLoggerFactory[] constructingInformation)
         {
-            foreach(var ci in constructingInformation?.Where(c => c != null))
+            constructingInformation = constructingInformation?.Where(c => c != null).ToArray();
+
+            if(constructingInformation == null || constructingInformation.Length <= 0)
+                return;
+            
+            foreach(var ci in constructingInformation)
             {
                 OnConstructing += ci;
             }
