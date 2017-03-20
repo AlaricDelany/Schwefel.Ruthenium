@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using Autofac;
+using Schwefel.Ruthenium.DependencyInjection.Models;
 
 namespace Schwefel.Ruthenium.DependencyInjection.AutofacAdapter
 {
     public class AutofacDependencyInjectionContainer : IDependencyInjectionContainer
     {
-        private ILifetimeScope _LifetimeScope = null;
+        private readonly ILifetimeScope _LifetimeScope = null;
 
-        public AutofacDependencyInjectionContainer(ILifetimeScope lifetimeScope) 
-            : base()
+        public AutofacDependencyInjectionContainer(ILifetimeScope lifetimeScope)
         {
             _LifetimeScope = lifetimeScope;
         }
@@ -43,6 +44,23 @@ namespace Schwefel.Ruthenium.DependencyInjection.AutofacAdapter
         public object Resolve(Type t)
         {
             return _LifetimeScope.Resolve(t);
+        }
+
+        /// <inheritdoc />
+        public IEnumerable<IServiceRegistration> ToArray()
+        {
+            throw  new NotImplementedException();
+
+            /*return _LifetimeScope.ComponentRegistry.Registrations.Select(r =>
+            {
+                IServiceRegistration lResult = null;
+
+
+                
+
+
+                return lResult;
+            });*/
         }
     }
 }

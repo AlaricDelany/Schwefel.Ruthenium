@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using Schwefel.Ruthenium.DependencyInjection.Models;
 
 namespace Schwefel.Ruthenium.DependencyInjection
 {
-    public interface IDependencyInjectionContainer: IDisposable
+    public interface IDependencyInjectionContainer : IDisposable
     {
         IDependencyInjectionContainer GetTransactionalContainer();
 
@@ -11,5 +13,7 @@ namespace Schwefel.Ruthenium.DependencyInjection
 
         T Resolve<T>();
         object Resolve(Type t);
+
+        IEnumerable<IServiceRegistration> ToArray();
     }
 }

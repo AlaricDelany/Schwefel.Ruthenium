@@ -1,5 +1,8 @@
 ﻿using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Schwefel.Ruthenium.DependencyInjection.Models;
 
 namespace Schwefel.Ruthenium.DependencyInjection.UnityAdapterNet45
 {
@@ -61,5 +64,23 @@ namespace Schwefel.Ruthenium.DependencyInjection.UnityAdapterNet45
         {
             return _container.Resolve(t);
         }
+
+        public IEnumerable<IServiceRegistration> ToArray()
+        {
+            return _container.Registrations.Select(r =>
+            {
+                IServiceRegistration lResult = new TypeServiceRegistration()
+                {
+                    BaseType = r.RegisteredType
+                    ,
+                    ImplementationType = r.MappedToType
+                };
+
+                return lResult;
+            });
+        }
+
+
+
     }
 }
