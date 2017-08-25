@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Schwefel.Ruthenium.DependencyInjection.Models;
+using System;
 using System.Collections.Generic;
-using Schwefel.Ruthenium.DependencyInjection.Models;
 
 namespace Schwefel.Ruthenium.DependencyInjection
 {

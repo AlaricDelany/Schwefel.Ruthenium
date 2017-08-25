@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Schwefel.Ruthenium.DependencyInjection
 {
@@ -8,11 +6,10 @@ namespace Schwefel.Ruthenium.DependencyInjection
     {
         void RegisterType<TInterface, TClass>()
             where TClass : TInterface;
+
         void RegisterType<TInterface>(Type classType);
         void RegisterType(Type interfaceType, Type classType);
 
         void RegisterInstance<TType>(TType instance);
-
-
     }
 }

@@ -1,12 +1,12 @@
 ﻿using Microsoft.Practices.Unity;
+using Schwefel.Ruthenium.DependencyInjection.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Schwefel.Ruthenium.DependencyInjection.Models;
 
 namespace Schwefel.Ruthenium.DependencyInjection.UnityAdapterNet45
 {
-    public class UnityDependencyInjectionContainer : IDependencyInjectionContainer, ISetUpAbleDependencyInjectionContainer
+    public class UnityDependencyInjectionContainer
+        : IDependencyInjectionContainer, ISetUpAbleDependencyInjectionContainer
     {
         private readonly IUnityContainer _container = null;
 
@@ -67,20 +67,15 @@ namespace Schwefel.Ruthenium.DependencyInjection.UnityAdapterNet45
 
         public IEnumerable<IServiceRegistration> ToArray()
         {
-            return _container.Registrations.Select(r =>
+            foreach (var containerRegistration in _container.Registrations)
             {
-                IServiceRegistration lResult = new TypeServiceRegistration()
-                {
-                    BaseType = r.RegisteredType
-                    ,
-                    ImplementationType = r.MappedToType
-                };
+                IServiceRegistration lResult =
+                    new ServiceRegistration<object>(() => Resolve(containerRegistration.RegisteredType)
+                        , containerRegistration.MappedToType
+                        , containerRegistration.RegisteredType); //TODO: Potential Memory Leak
 
-                return lResult;
-            });
+                yield return lResult;
+            }
         }
-
-
-
     }
 }
