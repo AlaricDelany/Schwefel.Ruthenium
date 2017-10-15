@@ -11,7 +11,7 @@ namespace Schwefel.Ruthenium.DependencyInjection
             return GetLoggerFactoryInternal(container);
         }
 
-        public static ILogger<T> GetLogger<T>(this IDependencyInjectionContainer container)
+        public static ILogger<T> CreateLogger<T>(this IDependencyInjectionContainer container)
             where T : class
         {
             var factory = GetLoggerFactoryInternal(container);
