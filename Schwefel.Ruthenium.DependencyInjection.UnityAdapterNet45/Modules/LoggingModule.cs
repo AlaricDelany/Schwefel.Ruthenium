@@ -9,25 +9,17 @@ namespace Schwefel.Ruthenium.DependencyInjection.UnityAdapterNet45.Modules
     {
         public LoggingModule(params OnConstructLoggerFactory[] constructingInformation)
         {
-            foreach (var ci in constructingInformation?.Where(c => c != null))
+            if(constructingInformation == null)
+                return;
+
+            foreach (var ci in constructingInformation.Where(c => c != null))
             {
                 OnConstructing += ci;
             }
         }
 
-        private OnConstructLoggerFactory _OnConstructing;
+        public event OnConstructLoggerFactory OnConstructing;
 
-        public event OnConstructLoggerFactory OnConstructing
-        {
-            add
-            {
-                _OnConstructing += value;
-            }
-            remove
-            {
-                _OnConstructing -= value;
-            }
-        }
 
         ~LoggingModule()
         {
@@ -36,10 +28,10 @@ namespace Schwefel.Ruthenium.DependencyInjection.UnityAdapterNet45.Modules
 
         public void Dispose()
         {
-            var subscriber = _OnConstructing?.GetInvocationList().OfType<OnConstructLoggerFactory>().ToArray();
-
-            if (subscriber != null)
+            if (OnConstructing != null)
             {
+                var subscriber = OnConstructing.GetInvocationList().OfType<OnConstructLoggerFactory>().ToArray();
+
                 foreach (var currentSub in subscriber)
                 {
                     OnConstructing -= currentSub;
@@ -51,7 +43,7 @@ namespace Schwefel.Ruthenium.DependencyInjection.UnityAdapterNet45.Modules
         {
             ILoggerFactory factory = new LoggerFactory();
 
-            _OnConstructing?.Invoke(factory);
+            OnConstructing?.Invoke(factory);
 
             container.RegisterInstance(factory);
         }
