@@ -4,13 +4,13 @@ using System;
 namespace Schwefel.Ruthenium.DependencyInjection.Web
 {
     public class ServiceProvider<TDependencyContainer> : IServiceProvider, IDisposable
-        where TDependencyContainer : IDependencyInjectionContainer
+        where TDependencyContainer : class, IDependencyInjectionContainer
     {
-        private IDependencyInjectionContainer _container;
+        private TDependencyContainer _container;
 
-        public ServiceProvider(IDependencyInjectionContainer container)
+        public ServiceProvider(TDependencyContainer container)
         {
-            _container = container;
+            _container = container ?? throw new ArgumentNullException(nameof(container));
         }
 
         public void Dispose()
@@ -21,6 +21,9 @@ namespace Schwefel.Ruthenium.DependencyInjection.Web
 
         public object GetService(Type serviceType)
         {
+            if(_container == null)
+                throw new ObjectDisposedException(nameof(_container));
+
             return _container.Resolve(serviceType);
         }
     }
