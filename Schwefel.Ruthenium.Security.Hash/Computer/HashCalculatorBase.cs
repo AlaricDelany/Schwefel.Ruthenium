@@ -1,9 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Logging;
-using System.Linq;
-using Schwefel.Ruthenium.DependencyInjection;
 
 namespace Schwefel.Ruthenium.Security.Hash.Computer
 {
@@ -13,7 +12,7 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer
         #region constrcutors
 
         protected internal HashCalculatorBase(
-            IDependencyInjectionContainer diContainer
+            ILoggerFactory loggerFactory
             ,
             THashAlgorithm cryptoserviceProvider
             ,
@@ -35,8 +34,7 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer
             EndSalt = endSalt;
             MaxLenght = maxLenght ?? CalculateDefaultMaxLenght();
 
-            _diContainer = diContainer;
-            _Logger = _diContainer.GetLogger<HashCalculatorBase<THashAlgorithm>>();
+            _Logger = loggerFactory.CreateLogger<HashCalculatorBase<THashAlgorithm>>();
         }
 
         #endregion
@@ -71,8 +69,7 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer
         protected Func<string, string> AfterCalculateHashDelegate = null;
         protected Func<string, string> BeforeCalculateHashDelegate = null;
         protected readonly THashAlgorithm HashAlgorithm;
-        private IDependencyInjectionContainer _diContainer = null;
-        private ILogger _Logger = null;
+        private readonly ILogger _Logger = null;
 
         #endregion fields
 

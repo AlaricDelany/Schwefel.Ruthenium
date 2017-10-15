@@ -4,8 +4,5 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
   </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Schwefel.Ruthenium.DependencyInjection.Logging\Schwefel.Ruthenium.DependencyInjection.Logging.csproj" />
-  </ItemGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

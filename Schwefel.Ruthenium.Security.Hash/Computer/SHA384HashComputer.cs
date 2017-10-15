@@ -1,20 +1,20 @@
-﻿using Schwefel.Ruthenium.DependencyInjection;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace Schwefel.Ruthenium.Security.Hash.Computer
 {
     public class Sha384HashComputer : HashCalculatorBase<SHA384>
     {
         public Sha384HashComputer(
-            IDependencyInjectionContainer container,
+            ILoggerFactory loggerFactory,
             Encoding encoding,
             bool     removeSeperators,
             ushort?  maxLenght = null,
             string   startSalt = null,
             string   endSalt   = null
             )
-            : base(container, SHA384.Create(), encoding, removeSeperators, maxLenght, startSalt, endSalt)
+            : base(loggerFactory, SHA384.Create(), encoding, removeSeperators, maxLenght, startSalt, endSalt)
         {
 
         }
