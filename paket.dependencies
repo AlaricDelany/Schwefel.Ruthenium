@@ -1,0 +1,9 @@
+source https://api.nuget.org/v3/index.json
+framework: netstandard1.1,netstandard1.3
+
+nuget Autofac ~> 4
+nuget Autofac.Extensions.DependencyInjection ~> 4
+nuget CommonServiceLocator ~> 1
+nuget Microsoft.Extensions.DependencyInjection.Abstractions ~> 1
+nuget Microsoft.Extensions.Logging ~> 1
+nuget Microsoft.Extensions.Logging.Abstractions ~> 1

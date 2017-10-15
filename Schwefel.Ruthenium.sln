@@ -1,8 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{50F583DE-27B8-4F16-8353-2AC4136F474C}"
+	ProjectSection(SolutionItems) = preProject
+		paket.dependencies = paket.dependencies
+		paket.lock = paket.lock
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{EED74352-5764-43C0-BCF0-7762FDA2FDF2}"
 	ProjectSection(SolutionItems) = preProject
 		GlobalPackageInfo.targets.xml = GlobalPackageInfo.targets.xml
@@ -27,8 +33,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schwefel.Ruthenium.Security.Hash", "Schwefel.Ruthenium.Security.Hash\Schwefel.Ruthenium.Security.Hash.csproj", "{C0BA976F-303F-4A82-A1E9-AA5370E350E5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schwefel.Ruthenium.Threading.Helpers", "Schwefel.Ruthenium.Threading.Helpers\Schwefel.Ruthenium.Threading.Helpers.csproj", "{B1B2B004-538E-4938-95A1-88B1DD7EC22D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schwefel.Ruthenium.DependencyInjection.UnityAdapterNet45", "Schwefel.Ruthenium.DependencyInjection.UnityAdapterNet45\Schwefel.Ruthenium.DependencyInjection.UnityAdapterNet45.csproj", "{800C178E-07BE-4B02-85CF-434CFB7FC0EF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schwefel.Ruthenium.DependencyInjection.Web", "Schwefel.Ruthenium.DependencyInjection.Web\Schwefel.Ruthenium.DependencyInjection.Web.csproj", "{5D53B6E3-B0EB-4893-8CDC-49739A38072A}"
 EndProject
@@ -152,18 +156,6 @@ Global
 		{B1B2B004-538E-4938-95A1-88B1DD7EC22D}.Release|x64.Build.0 = Release|Any CPU
 		{B1B2B004-538E-4938-95A1-88B1DD7EC22D}.Release|x86.ActiveCfg = Release|Any CPU
 		{B1B2B004-538E-4938-95A1-88B1DD7EC22D}.Release|x86.Build.0 = Release|Any CPU
-		{800C178E-07BE-4B02-85CF-434CFB7FC0EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{800C178E-07BE-4B02-85CF-434CFB7FC0EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{800C178E-07BE-4B02-85CF-434CFB7FC0EF}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{800C178E-07BE-4B02-85CF-434CFB7FC0EF}.Debug|x64.Build.0 = Debug|Any CPU
-		{800C178E-07BE-4B02-85CF-434CFB7FC0EF}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{800C178E-07BE-4B02-85CF-434CFB7FC0EF}.Debug|x86.Build.0 = Debug|Any CPU
-		{800C178E-07BE-4B02-85CF-434CFB7FC0EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{800C178E-07BE-4B02-85CF-434CFB7FC0EF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{800C178E-07BE-4B02-85CF-434CFB7FC0EF}.Release|x64.ActiveCfg = Release|Any CPU
-		{800C178E-07BE-4B02-85CF-434CFB7FC0EF}.Release|x64.Build.0 = Release|Any CPU
-		{800C178E-07BE-4B02-85CF-434CFB7FC0EF}.Release|x86.ActiveCfg = Release|Any CPU
-		{800C178E-07BE-4B02-85CF-434CFB7FC0EF}.Release|x86.Build.0 = Release|Any CPU
 		{5D53B6E3-B0EB-4893-8CDC-49739A38072A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5D53B6E3-B0EB-4893-8CDC-49739A38072A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D53B6E3-B0EB-4893-8CDC-49739A38072A}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -191,5 +183,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {861EB8C1-A735-46AF-9C68-67289A403F98}
 	EndGlobalSection
 EndGlobal
