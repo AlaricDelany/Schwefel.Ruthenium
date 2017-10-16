@@ -1,0 +1,1 @@
+del "%appdata%\nuget\NuGet.Config"
