@@ -1,3 +1,9 @@
+
+group fake_build
+source https://api.nuget.org/v3/index.json
+nuget FAKE
+
+group main
 source https://api.nuget.org/v3/index.json
 framework: netstandard1.1,netstandard1.3
 

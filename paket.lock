@@ -381,3 +381,8 @@ NUGET
       System.Text.Encoding (>= 4.3) - restriction: || (&& (== netstandard1.1) (>= dnxcore50)) (&& (== netstandard1.1) (>= netstandard1.3)) (== netstandard1.3)
       System.Threading (>= 4.3) - restriction: || (&& (== netstandard1.1) (>= dnxcore50)) (&& (== netstandard1.1) (>= netstandard1.3)) (== netstandard1.3)
       System.Xml.ReaderWriter (>= 4.3)
+
+GROUP fake_build
+NUGET
+  remote: https://api.nuget.org/v3/index.json
+    FAKE (4.63.2)
