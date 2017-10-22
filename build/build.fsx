@@ -9,7 +9,7 @@ let currentTarget = getBuildParamOrDefault "Target" "Pack"
 let buildDir = __SOURCE_DIRECTORY__
 trace ("Build Dir: " + buildDir)
 
-let solutionDir = buildDir @@ ".."
+let solutionDir =  Path.GetFullPath buildDir @@ ".."
 let versionFile = buildDir @@ "version.txt"
 let publishDir = solutionDir @@ "Publish"
 let version = File.ReadAllText versionFile
@@ -66,7 +66,7 @@ Target "Pack" (fun _ ->
                 Configuration = "Release"
                 WorkingDir=projectDir
                 OutputPath=publishDir
-                AdditionalArgs=[String.Format("/p:PackageVersion={0}", fullVersion); "--include-symbols"]
+                AdditionalArgs=[String.Format("/p:PackageVersion={0}", fullVersion); "--no-build"; "--no-restore"]
             })
     )
 )
