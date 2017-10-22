@@ -1,7 +1,8 @@
 
 group fake_build
 source https://api.nuget.org/v3/index.json
-nuget FAKE
+nuget FAKE.Core ~> 4
+nuget NuGet.CommandLine ~> 4
 
 group main
 source https://api.nuget.org/v3/index.json

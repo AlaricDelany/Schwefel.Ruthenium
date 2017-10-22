@@ -1,0 +1,29 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <VersionFile Include="$(MSBuildProjectDirectory)/../build/Version.txt"/>
+  </ItemGroup>
+  <PropertyGroup>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Authors>Alaric Delany</Authors>
+    <Company>Alaric Delany</Company>
+    <Product>Schwefel.Ruthenium</Product>
+    <PackageProjectUrl>https://github.com/AlaricDelany/Schwefel.Ruthenium</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/AlaricDelany/Schwefel.Ruthenium</RepositoryUrl>
+    <BuildNumber>$(BuildNumber)</BuildNumber>
+    <BuildNumber Condition="'$(BuildNumber)'==''">0</BuildNumber>
+  </PropertyGroup>
+  
+  <Target Name="ReadVersionFromFile" BeforeTargets="BeforeBuild" Outputs="$(VersionNumber)">
+    <Error Condition="!Exists(@(VersionFile))" Text="The Version File:'@(VersionFile)' does not Exists" />
+
+    <ReadLinesFromFile File="@(VersionFile)">
+      <Output TaskParameter="Lines" PropertyName="VersionNumber" />
+    </ReadLinesFromFile>
+    <Message Importance="high" Text="Version Number: $(VersionNumber)" />
+    <PropertyGroup>
+      <Version>
+        $(VersionNumber).$(BuildNumber)
+      </Version>
+    </PropertyGroup>
+  </Target>
+</Project>

@@ -1,7 +1,7 @@
 RESTRICTION: || (== netstandard1.1) (== netstandard1.3)
 NUGET
   remote: https://api.nuget.org/v3/index.json
-    Autofac (4.6.1)
+    Autofac (4.6.2)
       NETStandard.Library (>= 1.6)
       System.ComponentModel (>= 4.0.1)
     Autofac.Extensions.DependencyInjection (4.2)
@@ -385,4 +385,5 @@ NUGET
 GROUP fake_build
 NUGET
   remote: https://api.nuget.org/v3/index.json
-    FAKE (4.63.2)
+    FAKE.Core (4.63.2)
+    NuGet.CommandLine (4.3)
