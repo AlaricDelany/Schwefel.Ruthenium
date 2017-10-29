@@ -14,6 +14,7 @@ let versionFile = buildDir @@ "version.txt"
 let publishDir = solutionDir @@ "Publish"
 let version = File.ReadAllText versionFile
 let buildNumber = getBuildParamOrDefault "BuildNumber" "0"
+let apiKey = getBuildParamOrDefault "NugetKey" "NONE"
 let fullVersion = String.Format("{0}.{1}", version, buildNumber)
 trace ("Full Version Number: " + fullVersion)
 
@@ -73,7 +74,6 @@ Target "Pack" (fun _ ->
 
 Target "PushNuget" (fun _ ->
     let nugetFeedUrl = "https://api.nuget.org/v3/index.json"
-    let apiKey = environVarOrFail "BUILD_NUGET_KEY"
 
     Paket.Push(fun p ->
         { p with
