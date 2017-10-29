@@ -71,6 +71,19 @@ Target "Pack" (fun _ ->
     )
 )
 
+Target "PushNuget" (fun _ ->
+    let nugetFeedUrl = "https://api.nuget.org/v3/index.json"
+    let apiKey = environVarOrFail "NUGET_KEY"
+
+    Paket.Push(fun p ->
+        { p with
+            ApiKey = apiKey
+            PublishUrl = nugetFeedUrl
+            WorkingDir = publishDir
+            
+        })
+)
+
 "Clean"
   ==> "Build"
 "Restore"
