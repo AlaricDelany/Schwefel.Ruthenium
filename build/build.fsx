@@ -78,8 +78,8 @@ Target "PushNuget" (fun _ ->
     Paket.Push(fun p ->
         { p with
             ApiKey = apiKey
-            PublishUrl = nugetFeedUrl
             WorkingDir = publishDir
+            EndPoint=nugetFeedUrl
             
         })
 )
