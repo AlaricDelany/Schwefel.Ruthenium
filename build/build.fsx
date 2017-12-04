@@ -87,6 +87,7 @@ Target "PushNuget" (fun _ ->
 "Clean"
   ==> "Build"
 "Restore"
+  ==> "PushNuget"
   ==> "Build"
 "Build"
   ==> "Pack"
