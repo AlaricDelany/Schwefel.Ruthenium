@@ -74,13 +74,13 @@ Target "Pack" (fun _ ->
 
 Target "PushNuget" (fun _ ->
     let nugetFeedUrl = "https://api.nuget.org/v3/index.json"
+    let publishBaseDir = getBuildParamOrDefault "PublishBaseDir" publishDir
 
     Paket.Push(fun p ->
         { p with
             ApiKey = apiKey
-            WorkingDir = publishDir
+            WorkingDir = publishBaseDir
             EndPoint=nugetFeedUrl
-            
         })
 )
 
