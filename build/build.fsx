@@ -10,6 +10,7 @@ let buildDir = __SOURCE_DIRECTORY__
 trace ("Build Dir: " + buildDir)
 
 let solutionDir =  Path.GetFullPath buildDir @@ ".."
+let paketExe = solutionDir @@ ".paket" @@ "paket.exe"
 let versionFile = buildDir @@ "version.txt"
 let publishDir = solutionDir @@ "Publish"
 let version = File.ReadAllText versionFile
@@ -81,6 +82,7 @@ Target "PushNuget" (fun _ ->
             ApiKey = apiKey
             WorkingDir = publishBaseDir
             EndPoint=nugetFeedUrl
+            ToolPath = paketExe
         })
 )
 
