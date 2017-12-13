@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using Microsoft.Extensions.Logging;
 
 namespace Schwefel.Ruthenium.Security.Hash.Computer
 {
@@ -221,10 +221,17 @@ namespace Schwefel.Ruthenium.Security.Hash.Computer
                 _Logger.LogWarning($"{nameof(ComputeHash)} - {nameof(lHashRaw)}: \"{lHashRaw}\" {nameof(AfterCalculateHashDelegate)}: \"{lHash}\" results a null or empty string");
                 return null;
             }
-            if(lHash.Length > maxLenght + 1)
-                lHash = lHash.Substring(0, maxLenght);
+            lHash = TrimToMaxLengh(lHash, maxLenght);
 
             return lHash;
+        }
+
+        protected virtual string TrimToMaxLengh(string hash, int maxLenght)
+        {
+            if(hash.Length > maxLenght + 1)
+                return hash.Substring(0, maxLenght);
+            else
+                return hash;
         }
 
         #endregion methods
