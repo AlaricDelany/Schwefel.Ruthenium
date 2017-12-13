@@ -81,7 +81,6 @@ Target "PushNuget" (fun _ ->
             ApiKey = apiKey
             WorkingDir = publishBaseDir
             EndPoint=nugetFeedUrl
-            ToolPath = Path.GetFullPath ".."
         })
 )
 
